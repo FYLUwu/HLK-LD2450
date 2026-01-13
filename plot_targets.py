@@ -7,7 +7,7 @@ import threading
 import queue
 
 def serial_reader():
-    ser = serial.Serial('/dev/ttyUSB0', 256000, timeout=1)
+    ser = serial.Serial('/dev/ttyAMA0', 256000, timeout=1)
 
     while True:
         data = ser.read_until(serial_protocol.REPORT_TAIL)
