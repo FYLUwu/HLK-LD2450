@@ -1,2 +1,6 @@
 pyserial
 matplotlib
+flask
+flask-socketio
+python-socketio
+eventlet
