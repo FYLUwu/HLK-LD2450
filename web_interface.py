@@ -16,15 +16,16 @@ data_queue = queue.Queue()
 # Global variable to track serial connection status
 serial_connected = False
 ser = None
-
+result = False
 def serial_reader():
     """Thread function to continuously read data from the serial port"""
-    global serial_connected, ser
+    global serial_connected, ser, result
     try:
         ser = serial.Serial('/dev/ttyAMA0', 256000, timeout=1)
         serial_connected = True
         print("Serial connection established")
-        
+        result = serial_protocol.multi_target_tracking(ser)
+        print("Multi-target tracking enabled:", result)
         while True:
             try:
                 data = ser.read_until(serial_protocol.REPORT_TAIL)
@@ -98,10 +99,9 @@ def handle_disconnect():
 @socketio.on('enable_multi_target_tracking')
 def handle_enable_tracking(data):
     """Enable multi-target tracking"""
-    global ser
+    global ser, result
     if ser and serial_connected:
         try:
-            result = serial_protocol.multi_target_tracking(ser, data.get('enable', True))
             emit('tracking_status', {'success': result, 'enabled': data.get('enable', True)})
         except Exception as e:
             print(f"Error setting multi-target tracking: {e}")
