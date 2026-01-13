@@ -4,7 +4,8 @@ import serial
 
 # Open the serial port
 ser = serial.Serial('/dev/ttyAMA0', 256000, timeout=1)
-
+multitracking = serial_protocol.multi_target_tracking(ser)
+print("Multitracking enabled:", multitracking)
 try:
     while True:
         # Read a line from the serial port
