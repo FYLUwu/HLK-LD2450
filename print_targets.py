@@ -3,7 +3,7 @@ import serial_protocol
 import serial
 
 # Open the serial port
-ser = serial.Serial('/dev/ttyS0', 256000, timeout=1)
+ser = serial.Serial('/dev/ttyAMA0', 256000, timeout=1)
 
 try:
     while True:
